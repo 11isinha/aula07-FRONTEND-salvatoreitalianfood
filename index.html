@@ -512,7 +512,7 @@
             modalDetalhes.classList.remove('opacity-0', 'pointer-events-none');
             setTimeout(() => {
                 modalDetalhesContent.classList.remove('scale-95');
-                modalDetalhesContent.classList.add('sacle-100');
+                modalDetalhesContent.classList.add('scale-100');
             }, 10);
         }
 
@@ -646,21 +646,22 @@
             <div class="flex-1">
                 <h4 class="font-bold text-lg text-dark">${item.nome}</h4>
                 <p class="text-sm text-muted">${precoUnit}</p>
-                <p class"text-bold text-primary mt-1">${subTotal}</p>
+                <p class="font-bold text-primary mt-1">${subTotal}</p>
             </div>
 
             <div class="flex items-center gap-3 bg-gray-100 p-2 rounded-xl">
                 <button onclick="diminuirQuantidade('${item.id}')"
-                class="w-8 h-8 flex justify-center items-center bg-white rounded-lg font-bold text-xl shadow-sm hover:text-primary active: scale-95 transition-all">-</button>
+                class="w-8 h-8 flex justify-center items-center bg-white rounded-lg font-bold text-xl shadow-sm hover:text-primary active:scale-95 transition-all">-</button>
                 <span class="font-bold text-lg w-4 text-center">${item.quantidade}</span>
-                <button onclick="aumentarQuantidade('${item.id}')" class="w-8 h-8 flex justify-center items-center bg-white rounded-lg font-bold text-xl shadow-sm hover: text-primary active: scale-95 transition-all">+</button>
+                <button onclick="aumentarQuantidade('${item.id}')" class="w-8 h-8 flex justify-center items-center bg-white rounded-lg font-bold text-xl shadow-sm hover:text-primary active:scale-95 transition-all">+</button>
+            </div>
             `;
                 itensContainer.appendChild(divItem);
             })
         }
         //fechar pedido  (Geolocalização API - GPS)
         function fecharPedido() {
-            if (carrinho.length === 0) {
+            if (navigator.geolocation) {
                 const btnPedido = document.getElementById('btn-fechar-pedido');
                 if (!btnPedido) return;
 
@@ -668,7 +669,7 @@
                 btnPedido.innerText = "Buscando Localização...";
 
                 navigator.geolocation.getCurrentPosition(
-                    (position) => {
+                    (posicao) => {
                         const lat = posicao.coords.latitude;
                         const lng = posicao.coords.longitude;
 
@@ -696,8 +697,9 @@
                 fecharModalCarrinho();
                 atualizarCarrinho();
             }
-            inicializarCarrinho();
         }
+        
+        inicializarCarrinho();
 
     </script>
 </body>
